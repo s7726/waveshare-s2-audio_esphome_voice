@@ -238,20 +238,20 @@ light:
           name: "Pulse Slow"
           min_brightness: 30%
           max_brightness: 100%
-          transition_length: 1000ms
-          update_interval: 16ms
+          transition_length: 2000ms
+          update_interval: 3000ms
       - pulse:
           name: "Pulse Medium"
           min_brightness: 30%
           max_brightness: 100%
           transition_length: 600ms
-          update_interval: 16ms
+          update_interval: 1200ms
       - pulse:
           name: "Pulse Fast"
           min_brightness: 30%
           max_brightness: 100%
           transition_length: 300ms
-          update_interval: 16ms
+          update_interval: 600ms
       - addressable_rainbow:
           name: "Rainbow Slow"
           speed: 6
