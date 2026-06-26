@@ -40,15 +40,6 @@ substitutions:
   hidden_ssid: "false"
   led_num: '7' # WS2812 ring leds
 
-# Pre-configured camera code
-# exposes UI controls to Homeassistant
-# ====================================
-#packages: # REMOTE (GIT)
-#  remote_package_shorthand: github://esphome/sw3Dan/waveshare-s2-audio_esphome_voice/waveshare_camera_pkg.yaml@main
-#packages: # LOCAL FILE
-#  dynamic-cam: !include
-#    file: waveshare_camera_pkg.yaml
-
 esphome:
   name: $device_name
   friendly_name: $friendly
@@ -292,12 +283,9 @@ audio_adc:
 #       path: components
 #     components: [ es8311 ]
 external_components:
-  - source: github://pr#15628
-    components: [micro_wake_word]
-    refresh: 1h
   - source:
       type: git
-      url: "https://github.com/sw3Dan/waveshare-s2-audio_esphome_voice"
+      url: "https://github.com/s7726/waveshare-s2-audio_esphome_voice"
       ref: main
     components: [ es8311 ]
     refresh: 0s
@@ -617,12 +605,6 @@ micro_wake_word:
     - model: https://github.com/kahrendt/microWakeWord/releases/download/okay_nabu_20241226.3/okay_nabu.json
       #probability_cutoff: 0.03 # 0.8
       id: okay_nabu
-    - model: https://raw.githubusercontent.com/formatBCE/Respeaker-Lite-ESPHome-integration/refs/heads/main/microwakeword/models/v2/kenobi.json
-      id: kenobi
-    - model: hey_jarvis
-      id: hey_jarvis
-    #- model: hey_mycroft
-    #  id: hey_mycroft
     - model: https://github.com/kahrendt/microWakeWord/releases/download/stop/stop.json
       id: stop
       internal: true #false
@@ -1197,6 +1179,7 @@ number:
       - logger.log:
           format: "[MIC] Set ES7210 gain to %.0f dB"
           args: ["x"]
+          
   - platform: template
     id: va_gain_factor
     name: "Gain Factor"
@@ -1298,7 +1281,7 @@ binary_sensor:
     use_interrupt: false
     pin:
       tca9555: ioexp
-      number: 9 # not '12' as schematics say!
+      number: 9
       inverted: true
     on_press:
       - media_player.volume_up: external_media_player
