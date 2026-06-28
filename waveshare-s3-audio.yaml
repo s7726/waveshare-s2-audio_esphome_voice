@@ -42,8 +42,12 @@ substitutions:
 
 esphome:
   name: $device_name
+  name_add_mac_suffix: true
   friendly_name: $friendly
   min_version: 2025.8.0
+  project:
+    name: s7726.esp32-audio-s3
+    version: "1.0"
   on_boot:
     - priority: -100
       then:
@@ -118,9 +122,6 @@ wifi:
   on_disconnect:
     - script.execute: control_leds
 
-#network:
-#  enable_ipv6: true
-
 debug:
   update_interval: 5s
 
@@ -181,6 +182,10 @@ ota:
   - platform: esphome
     id: ota_esphome
     password: !secret ota_password
+
+dashboard_import:
+  package_import_url: github://s7726/waveshare-s2-audio_esphome_voice/waveshare-s3-audio.yaml
+  import_full_config: false # or true
 
 i2c:
   - id: internal_i2c
@@ -968,7 +973,7 @@ script:
 
               auto time_now = id(rtc).now();
               if (time_now.hour == alarm_hour && time_now.minute == alarm_minute) {
-                auto action = id(alarm_action).state;
+                auto action = id(alarm_action).current_option();
                 if (action == "Play sound") {
                   id(timer_ringing).turn_on();
                 } else if (action == "Send event") {
