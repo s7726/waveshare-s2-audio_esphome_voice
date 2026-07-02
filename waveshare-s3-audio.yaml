@@ -110,10 +110,12 @@ esp32:
       CONFIG_MBEDTLS_SSL_PROTO_TLS1_3: "y"  # TLS1.3 support isn't enabled by default in IDF 5.1.5
 
 wifi:
-  id: wifi_id
+  networks:
+    - ssid: !secret wifi_ssid_primary
+    - password: !secret wifi_password_primary
+    - ssid: !secret wifi_ssid_setup
+    - password: !secret wifi_password_setup
   fast_connect: true
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
   power_save_mode: none  # Disable power saving for better performance
   reboot_timeout: 10min  # Prevent unnecessary reboots
   on_connect:
